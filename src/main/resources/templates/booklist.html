@@ -4,9 +4,11 @@
 <head>
   <title>Getting Started: Serving Web Content</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
+
   <h1>Books</h1>
   <table class="table table-striped">
     <tr>
@@ -14,15 +16,19 @@
       <th>Title</th>
       <th>ISBN</th>
       <th>Year</th>
+      <th></th>
+      <th></th>
     </tr>
-    <tr th:each="book : ${books}">
+    <tr th:each="book : ${books}"> <!--books pitää olla samalla nimellä, kuin millä se on controllerista välitetty -->
       <td th:text="${book.author}"></td>
       <td th:text="${book.title}"></td>
       <td th:text="${book.isbn}"></td>
       <td th:text="${book.publicationYear}"></td>
+      <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+      <td><a th:href="@{/add}" class="btn btn-primary">Edit</a></td>
     </tr>
   </table>
-  <a href="/add" class="btn btn-primary">Add book</a>
+  <a href="/add" class="btn btn-success">Add book</a>
 </body>
 
 </html>
