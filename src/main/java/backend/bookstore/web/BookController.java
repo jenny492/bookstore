@@ -1,7 +1,5 @@
 package backend.bookstore.web;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,28 +46,14 @@ public class BookController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
-        bookRepository.deleteById(studentId);
+    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+        bookRepository.deleteById(bookId);
         return "redirect:../booklist";
     }
 
-    @GetMapping("path")
-    public String edit(Model model) {
-        model.addAttribute("book", model);
-        return new String();
-    }
-
-    @Bean
-    public CommandLineRunner demo(BookRepository bookRepository) {
-        return (args) -> {
-            // luodaan muutama kirja
-            Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", 10.99, "1925");
-            Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084", 7.99, "1960");
-            Book book3 = new Book("1984", "George Orwell", "9780451524935", 9.99, "1949");
-            // tallennetaan kirjat h2-tietokantaan
-            bookRepository.save(book1);
-            bookRepository.save(book2);
-            bookRepository.save(book3);
-        };
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+        model.addAttribute("book", bookRepository.findById(bookId));
+        return "addbook";
     }
 }
