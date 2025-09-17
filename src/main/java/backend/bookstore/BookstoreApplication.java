@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import backend.bookstore.domain.Book;
 import backend.bookstore.domain.BookRepository;
+import backend.bookstore.domain.Category;
+import backend.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -25,13 +27,19 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 
+	//seuraavan voi laittaa myös service-kansioon erikseen
+	// lisää tänne myös kategorian lisäys
 	@Bean
-	public CommandLineRunner demo(BookRepository bookRepository) {
+	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {
+			Category fiction = new Category("Fiction");
+			Category classic = new Category("Classic");
+			categoryRepository.save(fiction);
+			categoryRepository.save(classic);
 			// luodaan muutama kirja
-			Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", 10.99, "1925");
-			Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084", 7.99, "1960");
-			Book book3 = new Book("1984", "George Orwell", "9780451524935", 9.99, "1949");
+			Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", 10.99, "1925", fiction);
+			Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084", 7.99, "1960", classic);
+			Book book3 = new Book("1984", "George Orwell", "9780451524935", 9.99, "1949", classic);
 			// tallennetaan kirjat h2-tietokantaan
 			bookRepository.save(book1);
 			bookRepository.save(book2);
