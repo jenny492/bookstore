@@ -1,7 +1,6 @@
 package backend.bookstore.web;
 import backend.bookstore.domain.CategoryRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class BookController {
 // spring.io spring beans and dependency
-    @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
 
     // construktorin injektointi
     public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
