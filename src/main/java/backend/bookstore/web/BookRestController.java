@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -42,7 +43,7 @@ public class BookRestController {
         return bookRepository.save(book);
     }
 
-    @PostMapping("/books/{id}")
+    @PutMapping("/books/{id}")
     public Book editBook(@PathVariable("id") Long bookId, @RequestBody Book editedBook) { 
         return bookRepository.findById(bookId)
         .map(book -> {
@@ -58,7 +59,7 @@ public class BookRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteBook(@PathVariable Long bookId) {
+    public void deleteBook(@PathVariable("id") Long bookId) {
         bookRepository.deleteById(bookId);
         //tee joku tarkistus
     }
