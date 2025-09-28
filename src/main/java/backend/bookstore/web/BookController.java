@@ -1,4 +1,5 @@
 package backend.bookstore.web;
+
 import backend.bookstore.domain.CategoryRepository;
 
 import org.springframework.stereotype.Controller;
@@ -6,16 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import backend.bookstore.domain.Book;
 import backend.bookstore.domain.BookRepository;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BookController {
-// spring.io spring beans and dependency
+    // spring.io spring beans and dependency
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
 
@@ -25,15 +26,16 @@ public class BookController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/index")
-    public @ResponseBody String indexMethod() {
-        return "Bookstore";
+    @RequestMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
     // tuo kaikki kirjat
     @GetMapping("/booklist")
     public String bookList(Model model) {
-        model.addAttribute("books", bookRepository.findAll()); // hakee kaikki kirjat select-komennolla ja listaa ne book-muuttujaan
+        model.addAttribute("books", bookRepository.findAll()); // hakee kaikki kirjat select-komennolla ja listaa ne
+                                                               // book-muuttujaan
         return "booklist";
     }
 
@@ -50,7 +52,8 @@ public class BookController {
         return "redirect:booklist";
     }
 
-    //jotta saa vitosen kurssista, niin olisi hyvä toteuttaa jotakin tarkistusta, esimerkiksi tänne
+    // jotta saa vitosen kurssista, niin olisi hyvä toteuttaa jotakin tarkistusta,
+    // esimerkiksi tänne
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
         bookRepository.deleteById(bookId);
@@ -66,9 +69,9 @@ public class BookController {
 
     @PostMapping("/saveEditedBook")
     public String saveEditedBook(@RequestBody String entity) {
-        //TODO: process POST request
-        
+        // TODO: process POST request
+
         return "redirect:/booklist";
     }
-    
+
 }

@@ -45,22 +45,26 @@ public class BookRestController {
 
     @PutMapping("/books/{id}")
     public Book editBook(@PathVariable("id") Long bookId, @RequestBody Book editedBook) { 
-        return bookRepository.findById(bookId)
-        .map(book -> {
-            book.setAuthor(editedBook.getAuthor());
-            book.setCategory(editedBook.getCategory());
-            book.setIsbn(editedBook.getIsbn());
-            book.setPrice(editedBook.getPrice());
-            book.setPublicationYear(editedBook.getPublicationYear());
-            book.setTitle(editedBook.getTitle());
-            return bookRepository.save(book);
-        })  
-        .orElse(null);
+        editedBook.setId(bookId);
+        return bookRepository.save(editedBook);
+        // bookRepository.findById(bookId)
+        // .map(book -> {
+        //     book.setAuthor(editedBook.getAuthor());
+        //     book.setCategory(editedBook.getCategory());
+        //     book.setIsbn(editedBook.getIsbn());
+        //     book.setPrice(editedBook.getPrice());
+        //     book.setPublicationYear(editedBook.getPublicationYear());
+        //     book.setTitle(editedBook.getTitle());
+        //     return bookRepository.save(book);
+        // })  
+        // .orElse(null);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable("id") Long bookId) {
         bookRepository.deleteById(bookId);
+        //return bookRepository.findAll(); 
+        //kirjalistan palautus ei jostakin syystä onnistu
         //tee joku tarkistus
     }
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
-  <title>Getting Started: Serving Web Content</title>
+  <title>Booklist</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-
+  <h4>Hello <span sec:authentication="name"></span>!</h4>
   <h1>Books</h1>
   <table class="table table-striped">
     <tr>
@@ -17,7 +17,7 @@
       <th>ISBN</th>
       <th>Year</th>
       <th>Category</th>
-      <th></th>
+      <th sec:authorize="hasAuthority ('ADMIN')"></th>
       <th></th>
     </tr>
     <tr th:each="book : ${books}"> <!--books pitää olla samalla nimellä, kuin millä se on controllerista välitetty -->
@@ -25,13 +25,24 @@
       <td th:text="${book.title}"></td>
       <td th:text="${book.isbn}"></td>
       <td th:text="${book.publicationYear}"></td>
-      <td th:text="${book.category != null} ? ${book.category.name} : ''"></td> 
-      <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+      <td th:text="${book.category != null} ? ${book.category.name} : ''"></td>
+      <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}"
+          class="btn btn-danger">Delete</a></td>
       <td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a></td>
     </tr>
   </table>
-  <a href="/add" class="btn btn-success">Add book</a>
-  <!--tässä voisi olla vielä linkki kirjalistaan-->
+  <table>
+    <tr>
+      <th><a href="/add" class="btn btn-success">Add new book</a></th>
+      <th>
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out" class="btn btn-success" />
+        </form>
+      </th>
+    </tr>
+
+  </table>
+
 </body>
 
 </html>
