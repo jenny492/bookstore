@@ -30,7 +30,6 @@ public class BookstoreApplication {
 	}
 
 	//seuraavan voi laittaa myös service-kansioon erikseen
-	// lisää tänne myös kategorian lisäys
 	@Bean
 	public CommandLineRunner demo(BookRepository brepository, CategoryRepository crepository, AppUserRepository urepository) {
 		return (args) -> {

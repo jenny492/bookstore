@@ -7,6 +7,7 @@ import backend.bookstore.domain.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,12 +38,14 @@ public class BookRestController {
     public Optional<Book> getABook(@PathVariable("id") Long bookId) {
         return bookRepository.findById(bookId);
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/books")
     public Book saveBook(@RequestBody Book book) {     
         return bookRepository.save(book);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/books/{id}")
     public Book editBook(@PathVariable("id") Long bookId, @RequestBody Book editedBook) { 
         editedBook.setId(bookId);
@@ -60,6 +63,7 @@ public class BookRestController {
         // .orElse(null);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')") // ilman tätä endpointiin voi päästä kuka tahansa käyttäjä
     @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable("id") Long bookId) {
         bookRepository.deleteById(bookId);

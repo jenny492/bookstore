@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class Book {
@@ -22,6 +23,8 @@ public class Book {
     private String author;
     private String publicationYear;
     private String isbn;
+
+    @Min(value = 0)
     private double price;
 
     @JsonIgnoreProperties("books")

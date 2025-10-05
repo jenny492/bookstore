@@ -1,4 +1,4 @@
-package backend.bookstore.web;
+package backend.bookstore.service;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +19,7 @@ public class UserDetailServiceImpl implements UserDetailsService  {
 	}
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {   
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {   
     	AppUser curruser = repository.findByUsername(username);
         UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
         		AuthorityUtils.createAuthorityList(curruser.getRole()));
