@@ -1,45 +1,41 @@
-DROP TABLE IF EXISTS book;
-DROP TABLE IF EXISTS appUser;
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS app_users;
+DROP TABLE IF EXISTS categories;
 
-CREATE TABLE appUser (
+CREATE TABLE app_users (
     user_id BIGSERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
-    passwordHash VARCHAR(255) NOT NULL,
-    userRole VARCHAR(50) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    user_role VARCHAR(50) NOT NULL
 );
 
-INSERT INTO appUser (username, passwordHash, userRole)
+INSERT INTO app_users (username, password_hash, user_role)
 VALUES
 ('user', '$2a$10$tAmc6.J5OZGgW89pWr8EFuQaguv1mnkKMMeawWxXbkL/whVkE.ioO', 'USER'),
 ('admin', '$2a$10$HAS4hoxt575J/95NCefPTuRgQl6WqEMlMM8waonVsXez3tk.pOwby', 'ADMIN');
 
-CREATE TABLE category (
+CREATE TABLE categories (
     category_id BIGSERIAL PRIMARY KEY,
-    cname VARCHAR(100) NOT NULL UNIQUE
+    cat_name VARCHAR(100) NOT NULL UNIQUE
 );
 
-INSERT INTO category (cname)
+INSERT INTO categories (cat_name)
 VALUES
 ('Fiction'),
 ('Classic');
 
-CREATE TABLE book (
+CREATE TABLE books (
     book_id BIGSERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     author VARCHAR(200),
-	isbn BIGINT,
+	isbn VARCHAR(200),
 	price INT,
-    pubYear INT,
-    category_id BIGINT,
+    pub_year INT,
+    category_id BIGINT REFERENCES categories(category_id)
 
-    -- Viittaukset
-    CONSTRAINT fk_book_category FOREIGN KEY (category_id)
-        REFERENCES category(category_id)
-        ON DELETE SET NULL
 );
 
-INSERT INTO book (title, author, isbn, price, pubYear, category_id)
+INSERT INTO books (title, author, isbn, price, pub_year, category_id)
 VALUES
 ('The Great Gatsby', 'F. Scott Fitzgerald', 9780743273565, 10.99, 1925, 1),
 ('To Kill a Mockingbird', 'Harper Lee', 9780061120084, 7.99, 1960, 2),

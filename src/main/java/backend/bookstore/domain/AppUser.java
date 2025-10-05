@@ -3,20 +3,21 @@ package backend.bookstore.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "app_users")
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, updatable = false)
     private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "user_role", nullable = false)
     private String role;
 
     public AppUser() {

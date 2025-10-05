@@ -1,23 +1,12 @@
 package backend.bookstore;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import backend.bookstore.domain.AppUser;
-import backend.bookstore.domain.AppUserRepository;
-import backend.bookstore.domain.Book;
-import backend.bookstore.domain.BookRepository;
-import backend.bookstore.domain.Category;
-import backend.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
+	//private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
 
 	// tarvii ehkä myöhemmin täällä:
 	// private final BookRepository bookRepository;
@@ -30,7 +19,7 @@ public class BookstoreApplication {
 	}
 
 	//seuraavan voi laittaa myös service-kansioon erikseen
-	@Bean
+/* 	@Bean
 	public CommandLineRunner demo(BookRepository brepository, CategoryRepository crepository, AppUserRepository urepository) {
 		return (args) -> {
 			Category fiction = new Category("Fiction");
@@ -61,5 +50,5 @@ public class BookstoreApplication {
 			// 	log.info(book.toString());
 			// }
 		};
-	}
+	} */
 }

@@ -18,7 +18,7 @@ public class BookRepositoryTests {
     private BookRepository bRepository;
 
     private Book createTestBook() {
-        return new Book("Test title", "Test Author", "12345", 10.0, "1234", null);
+        return new Book("Test title", "Test Author", "12345", 10.0, 1234, null);
     }
 
     @Test

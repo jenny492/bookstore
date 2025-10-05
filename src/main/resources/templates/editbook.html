@@ -20,8 +20,8 @@
             <label for="author">Author</label>
             <input type="text" id="author" th:field="*{author}" />
 
-            <label for="publicationYear">Publication Year</label>
-            <input type="text" id="publicationYear" th:field="*{publicationYear}" />
+            <label for="pubYear">Publication Year</label>
+            <input type="text" id="pubYear" th:field="*{pubYear}" />
 
             <label for="isbn">ISBN</label>
             <input type="text" id="isbn" th:field="*{isbn}" />
@@ -31,7 +31,7 @@
 
             <label for="catlist">Category</label>
             <select id="catlist" th:field="*{category}" class="form-control">
-       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+       			<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                 </select>
 
             <input type="submit" value="Save"></input>

@@ -24,7 +24,7 @@
       <td th:text="${book.author}"></td>
       <td th:text="${book.title}"></td>
       <td th:text="${book.isbn}"></td>
-      <td th:text="${book.publicationYear}"></td>
+      <td th:text="${book.pubYear}"></td>
       <td th:text="${book.category != null} ? ${book.category.name} : ''"></td>
       <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
       <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a></td>

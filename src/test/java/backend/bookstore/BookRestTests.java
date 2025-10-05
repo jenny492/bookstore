@@ -46,7 +46,7 @@ public class BookRestTests {
     @Test
     @WithMockUser(username = "admin", authorities = { "ADMIN"}) 
     public void testAddBookAsAdmin() throws Exception {
-        Book book = new Book("Test title", "Test Author", "12345", 10.0, "1234", null);
+        Book book = new Book("Test title", "Test Author", "12345", 10.0, 1234, null);
 
         mockMvc.perform
         (post("/books")
@@ -59,7 +59,7 @@ public class BookRestTests {
     @Test
     @WithMockUser(username = "user", authorities = { "USER"}) 
     public void testAddBookAsUser() throws Exception {
-        Book book = new Book("Test title", "Test Author", "12345", 10.0, "1234", null);
+        Book book = new Book("Test title", "Test Author", "12345", 10.0, 1234, null);
 
         mockMvc.perform
         (post("/books")

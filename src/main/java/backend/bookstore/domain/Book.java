@@ -2,43 +2,55 @@ package backend.bookstore.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 
 @Entity
+@Table(name = "books")
 public class Book {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private Long id;
 
     //alemmille muuttujille @NotEmpty checkit
     
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
-    private String publicationYear;
+
+    @Column(name = "pub_year")
+    private int pubYear;
+
+    @Column(name = "isbn")
     private String isbn;
 
     @Min(value = 0)
+    @Column(name = "price")
     private double price;
 
     @JsonIgnoreProperties("books")
     @ManyToOne
-    @JoinColumn(name = "categoryid") // categoryid on tietokannassa oleva fk
+    @JoinColumn(name = "category_id") // categoryid on tietokannassa oleva fk
     private Category category;
 
     public Book() {
     }
 
-    public Book(String title, String author, String isbn, double price, String publicationYear, Category category) {
+    public Book(String title, String author, String isbn, double price, int publicationYear, Category category) {
         this.title = title;
         this.author = author;
-        this.publicationYear = publicationYear;
+        this.pubYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
         this.category = category;
@@ -60,12 +72,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getPublicationYear() {
-        return publicationYear;
+    public int getPubYear() {
+        return pubYear;
     }
 
-    public void setPublicationYear(String publicationYear) {
-        this.publicationYear = publicationYear;
+    public void setPubYear(int publicationYear) {
+        this.pubYear = publicationYear;
     }
 
     public String getIsbn() {

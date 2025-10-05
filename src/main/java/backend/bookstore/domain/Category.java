@@ -7,14 +7,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "categories")
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id", nullable = false)
     private Long id;
+
+    @Column(name = "cat_name")
     private String name;
 
-    @JsonIgnoreProperties("category")
+    @JsonIgnoreProperties("categories")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books;
 
